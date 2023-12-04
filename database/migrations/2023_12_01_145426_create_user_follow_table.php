@@ -13,14 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('microposts', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger("user_id");
-            $table->string("content");
-            $table->timestamps();
+        Schema::table('user_follow', function (Blueprint $table) {
+
+            $table->unsignedBigInteger("follow_id");
+           
             
             //外部キー制約
-            $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");;
+           
+            $table->foreign("follow_id")->referencec("id")->on("users")->onDelete("cascade");
+            
+            //user_idとfollow_idの組み合わせの重複を許さない
+            $table->unique(["user_id","follow_id"]);
+            
         });
     }
 
@@ -31,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('microposts');
+        Schema::dropIfExists('user_follow');
     }
 };
