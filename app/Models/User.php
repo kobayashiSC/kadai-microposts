@@ -10,8 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-        @param  int  $userId
-        @return bool
+        
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -61,6 +60,7 @@ class User extends Authenticatable
     }
     
     //このユーザをフォロー中のユーザ。
+    
     public function followers()
     {
         return $this->belongsToMany(User::class,"user_follow","follow_id","user_id") ->withTimestamps();
@@ -92,6 +92,16 @@ class User extends Authenticatable
     
     public function is_following($userId)
     {
-        return $this->followings()->where("follow_id",$useId)->exists();
+        return $this->followings()->where("follow_id",$userId)->exists();
+    }
+    
+     public function feed_microposts()
+    {
+        // このユーザがフォロー中のユーザのidを取得して配列にする
+        $userIds = $this->followings()->pluck('users.id')->toArray();
+        // このユーザのidもその配列に追加
+        $userIds[] = $this->id;
+        // それらのユーザが所有する投稿に絞り込む
+        return Micropost::whereIn('user_id', $userIds);
     }
 }

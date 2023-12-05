@@ -13,18 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('user_follow', function (Blueprint $table) {
-
+        Schema::create('user_follow', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger("user_id");
             $table->unsignedBigInteger("follow_id");
-           
+            $table->timestamps();
             
-            //外部キー制約
-           
-            $table->foreign("follow_id")->referencec("id")->on("users")->onDelete("cascade");
+            $table->foreign("use_id")->references("id")->on("users")->onDelete("cascade");
+            $table->foreign("follow_id")->references("id")->on("users")->onDelete("cascade");
             
-            //user_idとfollow_idの組み合わせの重複を許さない
             $table->unique(["user_id","follow_id"]);
-            
         });
     }
 
