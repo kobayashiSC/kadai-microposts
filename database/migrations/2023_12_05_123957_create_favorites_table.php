@@ -19,10 +19,10 @@ return new class extends Migration
             $table->unsignedBigInteger("micropost_id");
             $table->timestamps();
             
-            $table->foreign("user_id")->rreferences("id")->on("users")->onDelete("cascade");
-            $table->foreign("follow_id")->references("id")->on("users")->onDelete("cascade");
+            $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
+            $table->foreign("micropost_id")->references("id")->on("users")->onDelete("cascade");
             
-            $table->unique(["user_id","follow_id"]);
+            $table->unique(["user_id","micropost_id"]);
         });
     }
 
