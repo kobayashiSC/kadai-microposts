@@ -4,6 +4,7 @@ use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\UserFollowController;
+use App\Http\Controllers\Auth\FavoritesController;
 
 define('LARAVEL_START', microtime(true));
 

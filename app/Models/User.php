@@ -109,7 +109,7 @@ class User extends Authenticatable
     //お気に入り機能追加   
     public function favorites()
     {
-        return $this->belongsTomany(Micropost::class,"favorites","user_id","micropost_id")->withTimestamps();
+        return $this->belongsToMany(Micropost::class,"favorites","user_id","micropost_id")->withTimestamps();
     }
     public function favorite($userId)
     {
@@ -123,7 +123,7 @@ class User extends Authenticatable
             return true;
         }
     }
-    public function unfavorite()
+    public function unfavorite($userId)
     {
         $exist = $this->is_favorite($userId);
         $its_me = $this->id == $userId;

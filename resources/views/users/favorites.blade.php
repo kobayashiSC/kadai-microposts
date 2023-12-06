@@ -10,8 +10,8 @@
             {{-- タブ --}}
             @include('users.navtabs')
             <div class="mt-4">
-            {{-- ユーザ一覧 --}}
-            @include('users.users')
+            {{-- お気に入り一覧 --}}
+            @include('user_favorite.all_favorites')
             </div>
         </div>
     </div>
