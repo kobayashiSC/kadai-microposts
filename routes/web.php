@@ -40,6 +40,6 @@ Route::group(["middleware" => ["auth"]], function(){
         Route::post("favorite", [FavoritesController::class,"store"])->name("user.favorite");
         Route::delete("unfavorite",[FavoritesController::class,"destroy"])->name("user.unfavorite");
         Route::get("favorites",[UsersController::class,"favorites"])->name("users.favorites");
-        Route::get("favorite_users",[UserController::class,"favorite_users"])->name("users.favorite_users");
+        Route::get("favorite_users",[UsersController::class,"favorite_users"])->name("users.favorite_users");
     });
 });
