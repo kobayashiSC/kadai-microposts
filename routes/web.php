@@ -30,16 +30,16 @@ Route::group(['middleware' => ['auth']], function () {
         Route::delete('unfollow', [UserFollowController::class, 'destroy'])->name('user.unfollow'); // 追記
         Route::get('followings', [UsersController::class, 'followings'])->name('users.followings'); // 追記
         Route::get('followers', [UsersController::class, 'followers'])->name('users.followers');    // 追記
+        Route::get("favorites",[UsersController::class,"favorites"])->name("users.favorites");      //お気に入り一覧取得して表示
     });    
-        Route::resource('users', UsersController::class, ['only' => ['index', 'show']]);     // 追記
-        Route::resource('microposts', MicropostsController::class, ['only' => ['store', 'destroy']]);
+    Route::resource('users', UsersController::class, ['only' => ['index', 'show']]);     // 追記
+    Route::resource('microposts', MicropostsController::class, ['only' => ['store', 'destroy']]);
 });
 
 Route::group(["middleware" => ["auth"]], function(){
     Route::group(["prefix" => "microposts/{id}"],function(){
         Route::post("favorite", [FavoritesController::class,"store"])->name("user.favorite");
         Route::delete("unfavorite",[FavoritesController::class,"destroy"])->name("user.unfavorite");
-        Route::get("favorites",[UsersController::class,"favorites"])->name("users.favorites");
-        Route::get("favorite_users",[UsersController::class,"favorite_users"])->name("users.favorite_users");
+       
     });
 });
